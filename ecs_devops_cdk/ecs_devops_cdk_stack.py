@@ -36,8 +36,10 @@ class EcsDevopsCdkStack(cdk.Stack):
                                         )
 
         # Setting up VPC, in this case we're using an existing one
-        vpc = ec2.Vpc.from_lookup(
-            self, "ecs-cdk-vpc", vpc_id=os.getenv("CDK_DEFAULT_VPC_ID"))
+        vpc = ec2.Vpc.from_lookup(self,
+                                  "ecs-cdk-vpc",
+                                  vpc_id=os.getenv("CDK_DEFAULT_VPC_ID")
+                                  )
 
         # Setting up ECS Cluster with our VPC instance
         cluster = ecs.Cluster(self,
