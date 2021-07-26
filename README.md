@@ -47,6 +47,14 @@ To add additional dependencies, for example other CDK libraries, just add
 them to your `setup.py` file and rerun the `pip install -r requirements.txt`
 command.
 
+## Setting up `.env` file
+
+```
+CDK_DEFAULT_ACCOUNT="1234567890"    # Default AWS Account Number
+CDK_DEFAULT_REGION="us-east-1"      # Default AWS Region
+CDK_DEFAULT_VPC_ID="vpc-1o2hno1i2"  # Default Existing VPC ID
+```
+
 ## Useful commands
 
  * `cdk ls`          list all stacks in the app

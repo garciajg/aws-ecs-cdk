@@ -1,17 +1,16 @@
-from aws_cdk import core as cdk
-
 # For consistency with other languages, `cdk` is the preferred import name for
 # the CDK's core module.  The following line also imports it as `core` for use
 # with examples from the CDK Developer's Guide, which are in the process of
 # being updated to use `cdk`.  You may delete this import if you don't need it.
 from aws_cdk import (
     aws_logs,
-    core as cdk,
     aws_ecs as ecs,
     aws_ecr as ecr,
     aws_ec2 as ec2,
-    aws_iam as iam
+    aws_iam as iam,
+    core as cdk,
 )
+import os
 
 ECR_POLICY_ACTIONS = [
     "ecr:GetAuthorizationToken",
@@ -31,11 +30,14 @@ class EcsDevopsCdkStack(cdk.Stack):
         # Setting up resources needed
 
         # Setting up Container Repository
-        ecr_repository = ecr.Repository(
-            self, "ecs-cdk-repository", repository_name="ecs-cdk-repository")
+        ecr_repository = ecr.Repository(self,
+                                        "ecs-cdk-repository",
+                                        repository_name="ecs-cdk-repository"
+                                        )
 
         # Setting up VPC, in this case we're using an existing one
-        vpc = ec2.Vpc.from_lookup(self, "ecs-cdk-vpc", vpc_id="vpc-93f3b8e9")
+        vpc = ec2.Vpc.from_lookup(
+            self, "ecs-cdk-vpc", vpc_id=os.getenv("CDK_DEFAULT_VPC_ID"))
 
         # Setting up ECS Cluster with our VPC instance
         cluster = ecs.Cluster(self,
